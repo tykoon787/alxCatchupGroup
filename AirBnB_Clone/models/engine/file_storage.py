@@ -44,7 +44,15 @@ class FileStorage():
                 json_string = json.dumps(self.__objects)
                 f.write(json_string)
         else:
-            print("File Path Does not exist")
+            print("File Path: {} Does not exist".format(self.__file_path))
+
+    @classmethod
+    def create_instance(cls, dictionary: dict):
+        if type(dictionary) != dict:
+            print("{} != dict".format(type(dictionary)))
+        else:
+            for key, value in dictionary.items():
+                setattr(cls, key, value)
 
 
     def reload(self): 
@@ -57,3 +65,5 @@ class FileStorage():
             list_of_instances = json.loads(read_file)
             for item in list_of_instances:
                 self.__objects = item.to_dictionary()
+                FileStorage.create_instance(self.__objects)
+
