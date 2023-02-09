@@ -9,4 +9,4 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(self.my_model.to_dict, "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__))
 
 if __name__ == '__main__':
-    unittest().main()
+    unittest.main()
