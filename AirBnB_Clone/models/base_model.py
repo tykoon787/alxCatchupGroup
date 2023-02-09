@@ -2,7 +2,6 @@
 from uuid import uuid4
 from datetime import datetime
 from models import storage
-import sys
 
 class BaseModel():
     def __init__(self, *args, **kwargs): 
