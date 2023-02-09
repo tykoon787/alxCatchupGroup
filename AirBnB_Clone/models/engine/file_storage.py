@@ -16,15 +16,13 @@ class FileStorage():
     -------
 
     """
-    def init(self):
-        self.__file_path = ""
-        self.__objects = {}
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """
         Function that returns the dictonary objects
         """
-        self.__objects = self.__dict__
         return (self.__objects)
 
     def new(self, obj):
@@ -32,19 +30,15 @@ class FileStorage():
         Function that sets in objects dictionary the obj key
         with <obj class name>.id
         """
-        key = "{}.{}".format(self.__class__.__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         self.__objects[key] = obj.to_dict()
 
     def save(self):
         """
         Function that serializes the obj dict to a json file
         """
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, mode="w", encoding="utf-8") as f:
-                json_string = json.dumps(self.__objects)
-                f.write(json_string)
-        else:
-            print("File Path: {} Does not exist".format(self.__file_path))
+        with open(self.__file_path, mode="w", encoding="utf-8") as f:
+            json.dump(self.__objects, f)
 
     @classmethod
     def create_instance(cls, dictionary: dict):
@@ -59,11 +53,16 @@ class FileStorage():
         """
         Deserialzes the JSON file to __objects (dictionary), then into an instance
         """
-        with open(self.__file_path, mode="r", encoding="utf-8") as f:
-            read_file = f.read().splitlines()
-            # List of instances containing a list of dicts
-            list_of_instances = json.loads(read_file)
-            for item in list_of_instances:
-                self.__objects = item.to_dictionary()
-                FileStorage.create_instance(self.__objects)
-
+        try:
+            if os.path.exists(self.__file_path):
+                with open(self.__file_path, mode="r", encoding="utf-8") as f:
+                        read_file = f.read().splitlines()
+                        # List of instances containing a list of dicts
+                        list_of_instances = json.loads(read_file)
+                        for item in list_of_instances:
+                            self.__objects = item.to_dictionary()
+                            FileStorage.create_instance(self.__objects)
+            else:
+               pass 
+        except FileNotFoundError as e:
+            return e
