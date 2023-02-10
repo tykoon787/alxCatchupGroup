@@ -8,7 +8,7 @@ import json
 import os.path
 import sys
 sys.path.append('/home/vagrant/AirBnB_clone/models')
-from base_model_4 import BaseModel
+from base_model import BaseModel
 
 class FileStorage:
     """
