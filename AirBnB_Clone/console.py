@@ -49,8 +49,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** Class Name missing ** ")
          
-    
-
     def do_destroy(self, arg):
         """
         deletes an instance based on name and id
@@ -77,8 +75,40 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
 
+    def do_update(self, arg):
+        """
+        Updates an instance based on the class name and ID by adding or updating attribute
+        The changes are saved to the json file
+        """
+        if arg:
+            args = arg.split() 
+            if len(args) < 4:
+                print(" ** Usage: do_update <class_name> <id> <attr_name> <attr_value>")
+                return
+            
+            class_name = args[0]
+            id = args[1]
+            attr_name = args[2]
+            attr_value = args[3]
 
-    
+            if class_name not in globals():
+                print(" ** Class does not exist ** ")
+                return
+            else:
+                name_id = class_name + "." + id
+                storage.reload()
+                # Store reloaded data
+                reloaded_data = storage.all()
+                for key, value in reloaded_data.items():
+                    if key == name_id:
+                        instance_dict = value
+                        # Add the attibute name to the dictionary and its value
+                        instance_dict[attr_name] = attr_value
+                        # Save the file
+                        storage.save()
+                        break
+                    else:
+                        print(" ** Key not found ** ")
 
     def emptyline(self):
             """console to execute nothing when you press enter without an argument"""
