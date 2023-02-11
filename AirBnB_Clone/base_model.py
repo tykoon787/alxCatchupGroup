@@ -5,7 +5,10 @@ by the subclasses of the AirBnB clone project
 """
 from uuid import uuid4
 from datetime import datetime
-from models import storage
+import file_storage 
+
+storage = file_storage.FileStorage()
+storage.reload
 
 class BaseModel:
     """

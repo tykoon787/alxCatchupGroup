@@ -4,8 +4,8 @@ This module contains a class that defines an
 entry point to a command interpreter
 """
 import cmd
-from models.base_model import BaseModel
-from models import storage
+from base_model import BaseModel
+from AirBnB_Clone import storage
 
 class HBNBCommand(cmd.Cmd):
     """command processor for the AirBnb console"""
