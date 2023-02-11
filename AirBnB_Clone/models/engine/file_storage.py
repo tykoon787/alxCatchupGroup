@@ -2,6 +2,7 @@
 import json
 import os
 
+
 class FileStorage():
     """
     File Storage Class 
@@ -40,29 +41,18 @@ class FileStorage():
         with open(self.__file_path, mode="w", encoding="utf-8") as f:
             json.dump(self.__objects, f)
 
-    @classmethod
-    def create_instance(cls, dictionary: dict):
-        if type(dictionary) != dict:
-            print("{} != dict".format(type(dictionary)))
-        else:
-            for key, value in dictionary.items():
-                setattr(cls, key, value)
-
-
     def reload(self): 
         """
-        Deserialzes the JSON file to __objects (dictionary), then into an instance
+        Deserialzes the JSON file to __objects (dictionary), then into an instance using the class method
+        create_instance()
         """
         try:
             if os.path.exists(self.__file_path):
                 with open(self.__file_path, mode="r", encoding="utf-8") as f:
-                        read_file = f.read().splitlines()
-                        # List of instances containing a list of dicts
+                        read_file = f.read()
                         list_of_instances = json.loads(read_file)
-                        for item in list_of_instances:
-                            self.__objects = item.to_dictionary()
-                            FileStorage.create_instance(self.__objects)
+                        self.__objects = list_of_instances                            
             else:
                pass 
         except FileNotFoundError as e:
-            return e
+            pass
