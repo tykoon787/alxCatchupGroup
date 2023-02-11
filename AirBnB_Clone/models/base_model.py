@@ -4,17 +4,16 @@ from datetime import datetime
 from models import storage
 
 class BaseModel():
+    date_time_format = "%Y-%m-%dT%H:%M:%S.%f"
     def __init__(self, *args, **kwargs): 
-       self.updated_at = datetime.now()
-       date_time_format = "%Y-%m-%dT%H:%M:%S.%f"
 
        if (len(kwargs) != 0):
             for key, value in kwargs.items():
                 if key != "__class__":
                     if key == "created_at":
-                        datetime.strptime(value, date_time_format)
+                        datetime.strptime(value, self.date_time_format)
                     if key == "updated_at":
-                        datetime.strptime(value, date_time_format)
+                        datetime.strptime(value, self.date_time_format)
                     setattr(self, key, value)
        else:
            self.id = uuid4()        
@@ -42,8 +41,9 @@ class BaseModel():
         final_dict[key] = value
         for key, value in self.__dict__.items():
             if key == "created_at":
-                final_dict[key] = datetime.isoformat(value)
+                final_dict[key] = value.isoformat()
             if key == "updated_at":
-                final_dict[key] = datetime.isoformat(value) 
-            final_dict[key] = value
+                final_dict[key] = value.isoformat()
+            if key == "id":
+                final_dict[key] = str(value)
         return(final_dict)
