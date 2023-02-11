@@ -45,4 +45,5 @@ class BaseModel():
                 final_dict[key] = datetime.isoformat(value)
             if key == "updated_at":
                 final_dict[key] = datetime.isoformat(value) 
+            final_dict[key] = value
         return(final_dict)
