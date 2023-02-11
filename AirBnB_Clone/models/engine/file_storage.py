@@ -43,8 +43,7 @@ class FileStorage():
 
     def reload(self): 
         """
-        Deserialzes the JSON file to __objects (dictionary), then into an instance using the class method
-        create_instance()
+        Deserialzes the JSON file to __objects (dictionary)
         """
         try:
             if os.path.exists(self.__file_path):
