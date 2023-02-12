@@ -19,7 +19,7 @@ class FileStorage():
     """
     __file_path = "file.json"
     __objects = {}
-
+       
     def all(self):
         """
         Function that returns the dictonary objects
@@ -55,3 +55,4 @@ class FileStorage():
                pass 
         except FileNotFoundError as e:
             pass
+
