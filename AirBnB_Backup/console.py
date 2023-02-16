@@ -69,10 +69,7 @@ class HBNBCommand(cmd.Cmd):
         """
 
         if arg:
-
             args = arg.split()
-            if len(args) < 3:
-                print("** attribute name missing **")
             try:  # check if class name exits
                 cls = globals()[args[0]]
                 if len(args) == 1:
